@@ -5,8 +5,10 @@
 <table>
   <thead>
     <tr>
+      <th>Days</th>
       <th>Title</th>
       <th>Description</th>
+      <th>Progress</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,8 +16,10 @@
   <tbody>
     <% @todo_lists.each do |todo_list| %>
       <tr>
+        <td><%= time_ago_in_words(todo_list.created_at) %> ago</td>
         <td><%= todo_list.title %></td>
         <td><%= todo_list.description %></td>
+        <td><%= todo_list.todo_items.complete.count %>/<%= todo_list.todo_items.count %></td> 
         <td><%= link_to 'Show', todo_list %></td>
         <td><%= link_to 'Edit', edit_todo_list_path(todo_list) %></td>
         <td><%= link_to 'Destroy', todo_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
