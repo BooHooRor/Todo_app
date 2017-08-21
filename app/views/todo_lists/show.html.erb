@@ -1,21 +1,46 @@
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p> -->
 
-<p>
-  <strong>Title:</strong>
-  <%= @todo_list.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @todo_list.description %>
-</p>
-
-<div id="todo_items_wraper">
-	<%= render @todo_list.todo_items %>
-	<div id="form">
-		<%= render "todo_items/form" %>
+<div class="header">
+  <h1><%= @todo_list.title %></h1>
+  <p><%= @todo_list.description %></p>
+  <% if @todo_list.background_url.exists? %>
+  	<%= image_tag @todo_list.background_url.url(:medium) %>
+  <% end %>
+</div>
+<div class="todo_lists">
+	<% if @todo_list.todo_items.length == 0 %>
+		<h2 class="info_text">Its time to add some subtasks..</h2>
+    	<p class="info_text">Type your duty and click + below.</p>
+    	<div id="form">
+			<%= render "todo_items/form" %>
+		</div>
+	<% else %>
+	<div id="todo_items_wraper">
+		<%= render @todo_list.todo_items %>
+		<div id="form">
+			<%= render "todo_items/form" %>
+		</div>
+	</div>
+	<% end %>
+</div>
+<div class="footer">
+<div id="bottom_navi">
+	<div class="home">
+		<%= link_to todo_lists_path do %>
+			<i class="fa fa-chevron-left fa-2x" aria-hidden="true"></i>
+		<% end %>
+	</div>
+	<div class="edit">
+		<%= link_to edit_todo_list_path(@todo_list) do %>
+  			<i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+		<% end %>
+	</div>
+	<div class="trash">
+		<%= link_to @todo_list, method: :delete, data: { confirm: 'Are you sure?' } do %>
+  			<i class="fa fa-trash-o fa-2x"></i>
+  		<% end %>
 	</div>
 </div>
 
-<%= link_to 'Edit', edit_todo_list_path(@todo_list) %> |
-<%= link_to 'Back', todo_lists_path %>
+  <!-- <p>App made by BooHoo.</p> -->
+</div>

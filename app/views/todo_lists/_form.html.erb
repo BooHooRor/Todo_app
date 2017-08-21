@@ -1,9 +1,7 @@
-<%= form_for(todo_list) do |f| %>
+<%= form_for(todo_list, html: { multipart: true }) do |f| %>
   <% if todo_list.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(todo_list.errors.count, "error") %> prohibited this todo_list from being saved:</h2>
-
-      <ul>
+      <ul style="list-style-type: none; padding: 0;">
       <% todo_list.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
@@ -12,16 +10,38 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, placeholder: "Your dream" %>
   </div>
 
   <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
+    <%= f.text_area :description, placeholder: "Dream description..." %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <% if params[:action] == 'edit' %>
+  <div class="field">
+  <%= image_tag todo_list.background_url.url(:medium) %>
   </div>
+  <% end %>
+
+  <div class="field image-upload">
+    <label for="file-input">
+      <span>Upload Image of Your Dream!</span>
+    </label>
+    <%= f.file_field(:background_url, id: "file-input", class: "file_submit_button") %>
+  </div>
+
+  <div class="form_buttons">
+  <div class="back_button">
+    <%= link_to todo_lists_path do %>
+      <i class="fa fa-chevron-left fa-2x" aria-hidden="true"></i>
+    <% end %>
+  </div>
+  <div class="second_button">
+    <button class="submit_new_list" type="submit">
+        <i class="fa fa-floppy-o fa-2x" aria-hidden="true"></i>
+    </button>
+  </div>
+
+</div>
+  
 <% end %>

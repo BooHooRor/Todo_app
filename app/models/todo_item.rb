@@ -1,4 +1,5 @@
 class TodoItem < ApplicationRecord
+  validates :content, presence: true
   belongs_to :todo_list
 
   scope :complete, -> {where.not(completed_at: nil)}
@@ -11,4 +12,5 @@ class TodoItem < ApplicationRecord
   		false
   	end
   end
+
 end

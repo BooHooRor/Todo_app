@@ -3,12 +3,36 @@
   <head>
     <title>ToDo</title>
     <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Hammersmith+One|Russo+One|Ubuntu" rel="stylesheet">
   </head>
 
+  <script type="text/javascript">
+    $(document).mousemove(function (event) {
+    var Xdeg = 0;
+    var Ydeg = 0;
+    Ydeg = 5- (event.pageX * 5) / ($(document).width() / 2);            
+    Xdeg =  -5 + (event.pageY * 5) / ($(document).height()/2);
+    $('#container').css('transform', 'translateZ( -200px ) perspective( 600px ) rotateY( ' + Ydeg + 'deg ) rotateX( ' + Xdeg + 'deg )');
+    });
+  </script>
+ 
+  <script type="text/javascript">
+    $(window).scroll(function(){
+      var = fromTop = $(window).scrollTop();
+      $("#container").css('margin', '-' + (100 -fromTop) + 'px auto 0px auto;');
+    });
+  </script>
   <body>
-    <%= yield %>
+  <div class="wrap">
+    <div class="bg"></div>
+      <div id="container">
+        <%= yield %>
+      </div>
+    
+  </div>    
   </body>
 </html>

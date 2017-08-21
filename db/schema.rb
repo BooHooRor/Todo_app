@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170805104753) do
+ActiveRecord::Schema.define(version: 20170810201133) do
 
   create_table "todo_items", force: :cascade do |t|
     t.string   "content"
@@ -24,8 +24,12 @@ ActiveRecord::Schema.define(version: 20170805104753) do
   create_table "todo_lists", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "background_url_file_name"
+    t.string   "background_url_content_type"
+    t.integer  "background_url_file_size"
+    t.datetime "background_url_updated_at"
   end
 
 end

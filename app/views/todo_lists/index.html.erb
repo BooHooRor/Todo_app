@@ -1,33 +1,41 @@
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p> -->
 
-<h1>Todo Lists</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Days</th>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Progress</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @todo_lists.each do |todo_list| %>
-      <tr>
-        <td><%= time_ago_in_words(todo_list.created_at) %> ago</td>
-        <td><%= todo_list.title %></td>
-        <td><%= todo_list.description %></td>
-        <td><%= todo_list.todo_items.complete.count %>/<%= todo_list.todo_items.count %></td> 
-        <td><%= link_to 'Show', todo_list %></td>
-        <td><%= link_to 'Edit', edit_todo_list_path(todo_list) %></td>
-        <td><%= link_to 'Destroy', todo_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="header">
+  <h1>before I die..</h1>
+</div>
+<div class="todo_lists">
+<% if @todo_lists.length == 0 %>
+  <div class="todo_list">
+    <h2>Don't You have dreams?</h2>
+    <p>Click + below and begin to help yourself organize.</p>
+    <br>
+  </div>
+  <%= image_tag("dream_big.jpg", width: "400")%>
+<% else %>
+  <% @todo_lists.each do |todo_list| %>
+    <%= link_to todo_list do %>
+      <div class="todo_list">
+          <div class="left">
+            <p><%= time_ago_in_words(todo_list.created_at) %> ago</p>
+          </div>
+          <div class="center">
+            <p class="todo_list_title"><%= todo_list.title %></p>
+              <!-- <hr class="hover_line"> -->
+            <p class="todo_list_description"><%= truncate(todo_list.description, length: 40) %></p>
+          </div>
+          <div class="right">
+            <p><%= todo_list.todo_items.complete.count %>/<%= todo_list.todo_items.count %></p>
+          </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  <% end %>
+<% end %>
 
-<br>
+</div>
+<div class="footer">
+  <%= link_to new_todo_list_path do %>
+  <i class="fa fa-plus fa-3x add_todo_list" aria-hidden="true"></i>
+<% end %>
+  <!-- <p>App made by BooHoo.</p> -->
+</div>
 
-<%= link_to 'New Todo List', new_todo_list_path %>
