@@ -9,16 +9,6 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css?family=Archivo+Black|Hammersmith+One|Russo+One|Ubuntu" rel="stylesheet">
   </head>
-
-  <script type="text/javascript">
-    $(document).mousemove(function (event) {
-    var Xdeg = 0;
-    var Ydeg = 0;
-    Ydeg = 5- (event.pageX * 5) / ($(document).width() / 2);            
-    Xdeg =  -5 + (event.pageY * 5) / ($(document).height()/2);
-    $('#container').css('transform', 'translateZ( -200px ) perspective( 600px ) rotateY( ' + Ydeg + 'deg ) rotateX( ' + Xdeg + 'deg )');
-    });
-  </script>
  
   <script type="text/javascript">
     $(window).scroll(function(){
@@ -29,10 +19,60 @@
   <body>
   <div class="wrap">
     <div class="bg"></div>
-      <div id="container">
-        <%= yield %>
+      <div id="user_panel">
+        <div class="user_info">
+          <div class="profile_picture">
+            <img src="/profile.jpg" class="user_picture" alt="profile picture"/>
+          </div>
+          <div class="user_name">
+            <p>Odd Stewardson</p>
+          </div>
+        </div>
+        <ul>
+          <li>log out</li>
+          <li>basic stats</li>
+          <li>account settings</li>
+          <li></li>
+          <li></li>
+        </ul>
       </div>
-    
+
+        <div id="container">
+          <figure class="front"><%= yield %></figure>
+          <figure class="back">
+            <i style="" class="fa fa-2x fa-undo back_to_dreams"></i>
+          </figure>
+        </div>
+
+      <div id="inspiration_panel">
+        <h1>Inspire me</h1>
+        <div class="media_panel">
+          <i class="fa fa-3x fa-angle-left"></i>
+          <div id="queue">
+            <ul class="miniatures">
+              <li style=""><img src="/1.jpg" class="queue_item"/></li>
+              <li><img src="/2.jpg" class="queue_item"/></li>
+              <li><img src="/3.jpg" class="queue_item"/></li>
+<!--               <li><img src="/2.jpg" class="queue_item"/></li>
+ -->            </ul>
+          </div>
+          <i class="fa fa-3x fa-angle-right"></i>
+        </div>
+        <div class="quotes">
+          <i id="get-quote" class="fa fa-2x fa-forward"></i>
+          <div class="quotes_panel">
+            
+          </div>
+        </div>
+      </div>
+      <div id="note_section" data-click-state="0">
+        <div class="notepad_title">
+          <h3>Notepad</h3>
+          <img src="/up_arrow.png" class="note_up_arrow" alt="note up"/>
+        </div>
+        <div id="notepad">
+        </div>
+      </div>
   </div>    
   </body>
 </html>

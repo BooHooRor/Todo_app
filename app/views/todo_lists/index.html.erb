@@ -14,19 +14,39 @@
 <% else %>
   <% @todo_lists.each do |todo_list| %>
     <%= link_to todo_list do %>
-      <div class="todo_list">
-          <div class="left">
-            <p><%= time_ago_in_words(todo_list.created_at) %> ago</p>
+      
+        <% if todo_list.todo_items.count > 0 && todo_list.todo_items.count == todo_list.todo_items.complete.count %>
+          <div class="todo_list todo_list_done">
+            <div class="left">
+              <p><%= time_ago_in_words(todo_list.created_at) %> ago</p>
+            </div>
+            <div class="center">
+              <p class="todo_list_title"><%= todo_list.title %></p>
+              <p class="todo_list_description"><%= truncate(todo_list.description, length: 40) %></p>   
+              <img src="/done1.png" alt="DONE!" class="done_stamp"/>         
+            </div>
+            <div class="right">
+              <p>100%</p>
+            </div>
           </div>
-          <div class="center">
-            <p class="todo_list_title"><%= todo_list.title %></p>
-              <!-- <hr class="hover_line"> -->
-            <p class="todo_list_description"><%= truncate(todo_list.description, length: 40) %></p>
+        <% else %>
+          <div class="todo_list">
+            <div class="left">
+              <p><%= time_ago_in_words(todo_list.created_at) %> ago</p>
+            </div>
+            <div class="center">
+              <p class="todo_list_title"><%= todo_list.title %></p>
+              <p class="todo_list_description"><%= truncate(todo_list.description, length: 40) %></p>            
+            </div>
+            <div class="right">
+              <% if todo_list.todo_items.count > 0 %>
+                <p><%= todo_list.todo_items.complete.count*100/todo_list.todo_items.count %>%</p>
+              <% else %>
+                <p>0 %</p>
+              <% end %>
+            </div>
           </div>
-          <div class="right">
-            <p><%= todo_list.todo_items.complete.count %>/<%= todo_list.todo_items.count %></p>
-          </div>
-      </div>
+        <% end %>
     <% end %>
   <% end %>
 <% end %>

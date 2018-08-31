@@ -4,7 +4,15 @@ class TodoItemsController < ApplicationController
 
 	def create 
 		@todo_item = @todo_list.todo_items.create(todo_item_params)
-		redirect_to @todo_list
+		respond_to do |format|
+			if @todo_item.save
+				format.html { redirect_to @todo_list }
+				format.json { render :show, status: :created, location: @todo_list }
+			else
+				format.html { redirect_to @todo_list }
+				format.json { render json: @todo_item.errors, status: :unprocessable_entity }
+			end
+		end
 	end
 
 	def destroy

@@ -1,11 +1,12 @@
-<!-- <p id="notice"><%= notice %></p> -->
-
+<!-- <p id="notice"><%= notice %></p>
+ -->
 <div class="header">
   <h1><%= @todo_list.title %></h1>
   <p><%= @todo_list.description %></p>
   <% if @todo_list.background_url.exists? %>
   	<%= image_tag @todo_list.background_url.url(:medium) %>
   <% end %>
+  
 </div>
 <div class="todo_lists">
 	<% if @todo_list.todo_items.length == 0 %>
